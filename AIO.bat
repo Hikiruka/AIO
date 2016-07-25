@@ -1612,16 +1612,14 @@ ECHO . CTRULIB LIB Menu. Please choose your fork: .
 ECHO ..............................................
 ECHO.
 ECHO A - Smealum's Fork
-ECHO B - Steveice10's Fork
-ECHO C - Return to LIBs Menu
-ECHO D - Return to Main Menu
-ECHO E - EXIT Program
+ECHO B - Return to LIBs Menu
+ECHO C - Return to Main Menu
+ECHO D - EXIT Program
 ECHO.
 choice /C ABCDE /M "Enter the letter of your choice:"
-IF ERRORLEVEL 5 exit
-IF ERRORLEVEL 4 GOTO TYPE
-IF ERRORLEVEL 3 GOTO LIBS
-IF ERRORLEVEL 2 GOTO STEVEICE10
+IF ERRORLEVEL 4 exit
+IF ERRORLEVEL 3 GOTO TYPE
+IF ERRORLEVEL 2 GOTO LIBS
 IF ERRORLEVEL 1 GOTO SMEA
 
 :SMEA
@@ -1802,99 +1800,7 @@ echo Done. Files are in the "ctrulib-commit/libctru" folder. && echo Press any k
 Pause >nul
 GOTO END
 
-:STEVEICE10
-cls
-Title = Building Steveice10's Ctrulib...
-ECHO ......................................................................
-ECHO . Steveice10's LIBCTRU Menu. Do you want to install or compile only? .
-ECHO ......................................................................
-ECHO.
-ECHO A - Install Steveice10's LIBCTRU
-ECHO B - Compile Steveice10's LIBCTRU
-ECHO C - Return to CTRULIB's Menu
-ECHO D - Return to LIBs Menu
-ECHO E - Return to Main Menu
-ECHO F - EXIT Program
-ECHO.
-choice /C ABCDEF /M "Enter the letter of your choice:"
-IF ERRORLEVEL 6 exit
-IF ERRORLEVEL 5 GOTO TYPE
-IF ERRORLEVEL 4 GOTO LIBS
-IF ERRORLEVEL 3 GOTO LCTRU
-IF ERRORLEVEL 2 GOTO CTRUCOMP
-IF ERRORLEVEL 1 GOTO CTRUINST
 
-:CTRUINST
-cls
-if exist "Steveice10-ctrulib" (
-	echo Making a backup of your current Steveice10-ctrulib source folder
-	xcopy "Steveice10-ctrulib\*" "Backups_Compiles\Backup_Steveice10-ctrulib" /e /i /y >nul
-	Timeout /t 1 /nobreak >nul
-	ren Steveice10-ctrulib ctrulib
-    cd ctrulib
-    Title = Building Steveice10-ctrulib ^(Update^)...
-    echo Updating repo...
-    git pull origin master
-    git submodule update --init --recursive
-) else (
-    Title = Building Steveice10-ctrulib ^(Clone^)...
-    echo Cloning repo...
-    git clone --recursive https://github.com/Steveice10/ctrulib.git
-    cd ctrulib
-)
-echo Building...
-cd libctru
-set PATH=c:\Python27\;%PATH%
-Title = Building libctru ^(Clean^)...
-make clean
-Title = Building libctru ^(Release^)...
-make install
-Title = Building libctru ^(Done^)
-echo.
-echo ########################################################
-color A
-cd ..
-cd ..
-ren ctrulib Steveice10-ctrulib
-echo Done. Libctru is installed in the "c:/devkitpro" folder. && echo Press any key to continue ...
-Pause >nul
-GOTO END
-
-:CTRUCOMP
-cls
-if exist "Steveice10-ctrulib" (
-	echo Making a backup of your current Steveice10-ctrulib source folder
-	xcopy "Steveice10-ctrulib\*" "Backups_Compiles\Backup_Steveice10-ctrulib" /e /i /y >nul
-	Timeout /t 1 /nobreak >nul
-	ren Steveice10-ctrulib ctrulib
-    cd ctrulib
-    Title = Building Steveice10-ctrulib ^(Update^)...
-    echo Updating repo...
-    git pull origin master
-    git submodule update --init --recursive
-) else (
-    Title = Building Steveice10-ctrulib ^(Clone^)...
-    echo Cloning repo...
-    git clone --recursive https://github.com/Steveice10/ctrulib.git
-    cd ctrulib
-)
-echo Building...
-cd libctru
-set PATH=c:\Python27\;%PATH%
-Title = Building libctru ^(Clean^)...
-make clean
-Title = Building libctru ^(Release^)...
-make
-Title = Building libctru ^(Done^)
-echo.
-echo ###########################################################
-color A
-cd ..
-cd ..
-ren ctrulib Steveice10-ctrulib
-echo Done. Files are in the "Steveice10-ctrulib/libctru" folder. && echo Press any key to continue ...
-Pause >nul
-GOTO END
 
 :PORTLIB
 cls
